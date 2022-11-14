@@ -1,0 +1,30 @@
+name: login_smart_factory
+description: A new Flutter project.
+version: 0.0.1
+homepage:
+publish_to: none
+
+environment:
+  sdk: '>=2.18.1 <3.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  ota_update: ^4.0.2
+  package_info_plus: ^3.0.1
+  url_launcher: ^6.1.6
+  token_provider:
+    git:
+      url: https://github.com/zhgwu/token_provider
+  download_install_apk:
+    git:
+      url: https://github.com/zhgwu/download_install_apk
+  shared_preference_app_group: ^1.0.0+1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
