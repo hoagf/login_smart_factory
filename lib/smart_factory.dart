@@ -4,17 +4,16 @@ import 'dart:io';
 import 'package:download_install_apk/download_install_apk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preference_app_group/shared_preference_app_group.dart';
 import 'package:token_provider/token_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SmartFactory {
-  static const _smartfactoryPackage = 'com.foxconn.fii.smartfactory';
-  static const _appGroupTokenSaveKey =
-      '_______com.foxconn.fii.smartfactory_______';
+  static const _smartfactoryPackage = 'com.foxconn.fii.app.smartfactory';
+  static const _tokenStoreKey = '__token_store_key__';
 
-  static Future<dynamic> init({required BuildContext context}) async {
+  static Future<dynamic> init(
+      {required BuildContext context, required schemes}) async {
     if (Platform.isAndroid) {
       if (await canLaunchUrl(
           Uri(scheme: _smartfactoryPackage, path: '/login/pop'))) {
@@ -23,10 +22,7 @@ class SmartFactory {
           return json.decode((tokenRaw));
         }
         launchUrl(
-          Uri(
-              scheme: _smartfactoryPackage,
-              path:
-                  '/login/pop/${(await PackageInfo.fromPlatform()).packageName}'),
+          Uri(scheme: _smartfactoryPackage, path: '/login/pop/$schemes'),
         );
         SystemNavigator.pop();
       } else {
@@ -47,6 +43,7 @@ class SmartFactory {
                 TextButton(
                   onPressed: () async {
                     //Navigator.of(context).pop(true);
+                    //todo: update link download
                     await _showDownloadStatusDialog(context,
                         'https://10.224.81.70:6443/fiistore/ws-data/images/TDB/SmartFactory.apk');
                   },
@@ -62,19 +59,17 @@ class SmartFactory {
     if (Platform.isIOS) {
       if (await canLaunchUrl(
           Uri(scheme: _smartfactoryPackage, path: '/login/pop'))) {
-        SharedPreferenceAppGroup.setAppGroup(_smartfactoryPackage);
-        final tokenRaw =
-            await SharedPreferenceAppGroup.get(_appGroupTokenSaveKey);
+        await SharedPreferenceAppGroup.setAppGroup(
+            'group.$_smartfactoryPackage');
+        final tokenRaw = await SharedPreferenceAppGroup.get(_tokenStoreKey);
         if (tokenRaw != null && tokenRaw.isNotEmpty) {
           return json.decode((tokenRaw));
+        } else {
+          launchUrl(
+            Uri(scheme: _smartfactoryPackage, path: '/login/pop/$schemes'),
+          );
+          SystemNavigator.pop();
         }
-        launchUrl(
-          Uri(
-              scheme: _smartfactoryPackage,
-              path:
-                  '/login/pop/${(await PackageInfo.fromPlatform()).packageName}'),
-        );
-        SystemNavigator.pop();
       } else {
         await showDialog<bool>(
           context: context,
@@ -107,7 +102,6 @@ class SmartFactory {
         );
       }
     }
-    return null;
   }
 
   static Future<void> _showDownloadStatusDialog(

@@ -12,7 +12,6 @@ dependencies:
   flutter:
     sdk: flutter
   ota_update: ^4.0.2
-  package_info_plus: ^3.0.1
   url_launcher: ^6.1.6
   token_provider:
     git:
