@@ -37,7 +37,6 @@ class SmartFactory {
                   onPressed: () {
                     Navigator.of(context).pop(true);
                     exit(0);
-
                   },
                   child: const Text('Thoát'),
                 ),
@@ -66,7 +65,10 @@ class SmartFactory {
           return json.decode((tokenRaw));
         } else {
           await launchUrl(
-            Uri(scheme: _smartfactorySchemes, path: '/login/pop/$schemes', ),
+            Uri(
+              scheme: _smartfactorySchemes,
+              path: '/login/pop/$schemes',
+            ),
           );
           exit(0);
         }
@@ -80,7 +82,7 @@ class SmartFactory {
               actions: [
                 TextButton(
                   onPressed: () {
-                    exit(0)
+                    exit(0);
                   },
                   child: const Text('Thoát'),
                 ),
@@ -112,113 +114,113 @@ class SmartFactory {
         context: context,
         barrierDismissible: false,
         builder: (ctx) => AlertDialog(
-          title: const Text(
-            'Tải xuống',
-            textAlign: TextAlign.center,
-          ),
-          content: StreamBuilder<Event>(
-            stream: downloadStream,
-            builder: (context, snapshot) {
-              if (snapshot.data?.status == Status.installing) {
-                Navigator.of(context).pop();
-              }
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Builder(
-                    builder: (context) {
-                      if (snapshot.data?.status == Status.downloadError) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                                'Đã xảy ra lỗi trong quá trình tải xuống, chi tiết: ${snapshot.data?.value}'),
-                            Align(
-                              alignment: Alignment.center,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    launchUrl(Uri.parse(url),
-                                        mode:
-                                        LaunchMode.externalApplication);
-                                  },
-                                  child: const Text('Mở trong trình duyệt'),
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: TextButton(
-                                onPressed: () {
-                                  //Navigator.of(context).pop(true);
-                                  exit(0);
-                                },
-                                child: const Text('Thoát'),
-                              ),
-                            )
-                          ],
-                        );
-                      }
-                      return Column(
-                        children: [
-                          const Text(
-                              'Vui lòng KHÔNG thoát khỏi ứng dụng trong tiến trình này!'),
-                          (snapshot.data?.status == Status.downloading)
-                              ? Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
+              title: const Text(
+                'Tải xuống',
+                textAlign: TextAlign.center,
+              ),
+              content: StreamBuilder<Event>(
+                stream: downloadStream,
+                builder: (context, snapshot) {
+                  if (snapshot.data?.status == Status.installing) {
+                    Navigator.of(context).pop();
+                  }
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Builder(
+                        builder: (context) {
+                          if (snapshot.data?.status == Status.downloadError) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Expanded(
-                                  child: LinearProgressIndicator(
-                                    value: ((int.tryParse(snapshot
-                                        .data?.value ??
-                                        '0') ??
-                                        0) /
-                                        100),
+                                Text(
+                                    'Đã xảy ra lỗi trong quá trình tải xuống, chi tiết: ${snapshot.data?.value}'),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        launchUrl(Uri.parse(url),
+                                            mode:
+                                                LaunchMode.externalApplication);
+                                      },
+                                      child: const Text('Mở trong trình duyệt'),
+                                    ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                      '${(snapshot.data?.value ?? 0)}%'),
-                                ),
+                                Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: TextButton(
+                                    onPressed: () {
+                                      //Navigator.of(context).pop(true);
+                                      exit(0);
+                                    },
+                                    child: const Text('Thoát'),
+                                  ),
+                                )
                               ],
-                            ),
-                          )
-                              : const Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: CircularProgressIndicator(),
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
+                            );
+                          }
+                          return Column(
                             children: [
-                              Flexible(
-                                child: Text(
-                                  'Đang tải xuống ${url.split('/').last}',
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  //Navigator.of(context).pop(true);
-                                  exit(0);
-                                },
-                                child: const Text('Thoát'),
+                              const Text(
+                                  'Vui lòng KHÔNG thoát khỏi ứng dụng trong tiến trình này!'),
+                              (snapshot.data?.status == Status.downloading)
+                                  ? Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: LinearProgressIndicator(
+                                              value: ((int.tryParse(snapshot
+                                                              .data?.value ??
+                                                          '0') ??
+                                                      0) /
+                                                  100),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                                '${(snapshot.data?.value ?? 0)}%'),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : const Padding(
+                                      padding: EdgeInsets.all(16.0),
+                                      child: CircularProgressIndicator(),
+                                    ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      'Đang tải xuống ${url.split('/').last}',
+                                      textAlign: TextAlign.left,
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      //Navigator.of(context).pop(true);
+                                      exit(0);
+                                    },
+                                    child: const Text('Thoát'),
+                                  )
+                                ],
                               )
                             ],
-                          )
-                        ],
-                      );
-                    },
-                  ),
-                ],
-              );
-            },
-          ),
-        ));
+                          );
+                        },
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ));
   }
 
   static Future<void> logout() async {
@@ -226,6 +228,5 @@ class SmartFactory {
       Uri(scheme: _smartfactorySchemes, path: '/logout'),
     );
     exit(0);
-
   }
 }
