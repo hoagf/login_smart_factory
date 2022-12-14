@@ -27,6 +27,7 @@ class SmartFactory {
       } else {
         await showDialog<bool>(
           context: context,
+          barrierDismissible: false,
           builder: (context) {
             return AlertDialog(
               title: const Text('Login'),
