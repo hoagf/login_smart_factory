@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:download_install_apk/download_install_apk.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:shared_preference_app_group/shared_preference_app_group.dart';
 import 'package:token_provider/token_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -44,7 +43,7 @@ class SmartFactory {
                   onPressed: () async {
                     //todo: update link download
                     await _showDownloadStatusDialog(context,
-                        'https://10.224.81.70:6443/fiistore/ws-data/images/TDB/SmartFactory.apk');
+                        'https://10.224.81.70:6443/fiistore/ws-data/SmartFactoryNew/SmartFactory_v1.0.0.apk');
                   },
                   child: const Text('Tải xuống'),
                 ),
