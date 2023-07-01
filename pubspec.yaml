@@ -1,6 +1,6 @@
 name: login_smart_factory
 description: A new Flutter project.
-version: 0.0.1
+version: 0.0.2
 homepage:
 publish_to: none
 
@@ -15,10 +15,10 @@ dependencies:
   url_launcher: ^6.1.6
   token_provider:
     git:
-      url: https://github.com/zhgwu/token_provider
+      url: https://github.com/mag1c-dev/token_provider
   download_install_apk:
     git:
-      url: https://github.com/zhgwu/download_install_apk
+      url: https://github.com/mag1c-dev/download_install_apk
   shared_preference_app_group: ^1.0.0+1
 
 dev_dependencies:
