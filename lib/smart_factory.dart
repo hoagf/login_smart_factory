@@ -45,7 +45,7 @@ class SmartFactory {
                   onPressed: () async {
                     //todo: update link download
                     await _showDownloadStatusDialog(context,
-                        'https://fiisw.cnsbg.efoxconn.com:6443/fiistore/ws-data/public/SmartFactoryNew/SmartFactory_v1.1.1.apk');
+                        'https://fiisw.cnsbg.efoxconn.com:6443/fiistore/ws-data/public/SmartFactoryNew/SmartFactory_v1.1.4.apk');
                   },
                   child: const Text('Tải xuống'),
                 ),
