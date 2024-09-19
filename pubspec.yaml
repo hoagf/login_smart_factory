@@ -17,7 +17,8 @@ dependencies:
     git:
       url: https://github.com/mag1c-dev/token_provider
   download_install_apk:
-    path: ../download_install_apk
+    git:
+      url: https://github.com/hoagf/download_install_apk
   shared_preference_app_group: ^1.0.0+1
   android_intent_plus: ^5.1.0
 
