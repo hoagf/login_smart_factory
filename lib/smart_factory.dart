@@ -49,6 +49,7 @@ class SmartFactory {
                 ),
                 TextButton(
                   onPressed: () async {
+                    Navigator.pop(context);
                     //todo: update link download
                     print('download file: https://fiisw-cns.myfiinet.com/fiistore/file/SmartFactory');
                     await _showDownloadStatusDialog(context,
@@ -98,6 +99,7 @@ class SmartFactory {
                 TextButton(
                   onPressed: () async {
                     //todo: update link install
+                    Navigator.pop(context);
                     launchUrl(
                       Uri(
                         scheme: 'link install ios app',
