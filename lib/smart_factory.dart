@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:android_intent_plus/android_intent.dart';
+import 'package:android_intent_plus/flag.dart';
 import 'package:download_install_apk/download_install_apk.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preference_app_group/shared_preference_app_group.dart';
@@ -20,9 +22,13 @@ class SmartFactory {
         if (tokenRaw != null && tokenRaw.isNotEmpty) {
           return json.decode((tokenRaw));
         }
-        await launchUrl(
-          Uri(scheme: _smartfactorySchemes, path: '/login/pop/$schemes'),
+        final intent = AndroidIntent(
+            data: '$_smartfactorySchemes:///login/pop/$schemes',
+            action: 'action_view',
+            package: _smartfactorySchemes,
+            flags: <int>[Flag.FLAG_ACTIVITY_NEW_TASK]
         );
+        await intent.launch();
         exit(0);
       } else {
         if(!context.mounted) return;
@@ -44,8 +50,9 @@ class SmartFactory {
                 TextButton(
                   onPressed: () async {
                     //todo: update link download
+                    print('download file: https://fiisw-cns.myfiinet.com/fiistore/file/SmartFactory');
                     await _showDownloadStatusDialog(context,
-                        'https://fiisw.cnsbg.efoxconn.com:6443/fiistore/ws-data/public/SmartFactoryNew/SmartFactory_v1.1.4.apk');
+                        'https://fiisw-cns.myfiinet.com/fiistore/file/SmartFactory');
                   },
                   child: const Text('Tải xuống'),
                 ),
@@ -226,9 +233,19 @@ class SmartFactory {
   }
 
   static Future<void> logout() async {
-    await launchUrl(
-      Uri(scheme: _smartfactorySchemes, path: '/logout'),
-    );
+    if (Platform.isAndroid) {
+      const intent = AndroidIntent(
+          data: '$_smartfactorySchemes:///logout',
+          action: 'action_view',
+          package: _smartfactorySchemes,
+          flags: <int>[Flag.FLAG_ACTIVITY_NEW_TASK]
+      );
+      await intent.launch();
+    }else{
+      await launchUrl(
+        Uri(scheme: _smartfactorySchemes, path: '/logout', ),
+      );
+    }
     exit(0);
   }
 }
